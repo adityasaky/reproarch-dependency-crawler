@@ -22,8 +22,8 @@ def read_buildinfo(path):
 
     return buildinfo.decode()
 
-def build_pkg_from_package_name(path):
-    return os.path.basename(path).rsplit("-", 1)[0].lstrip("./")
+def build_full_pkg_from_package_name(path):
+    return os.path.basename(path).rsplit(".", 3)[0].lstrip("./")
 
 def decode_buildinfo_lines(buildinfo):
     result = []
@@ -40,7 +40,7 @@ def decode_buildinfo_lines(buildinfo):
 # XXX I opted for this ugly-looking dict update solution rather than something
 # more pythonic/elegant for this first sketch. It'd make sense to use something
 # smarter in the future...
-def add_package_to_dict(pkgdict, package, dependent_package): 
+def add_package_to_dict(pkgdict, package, dependent_package):
     if package not in pkgdict:
         pkgdict[package] = [dependent_package]
 
@@ -48,7 +48,7 @@ def add_package_to_dict(pkgdict, package, dependent_package):
         pkgdict[package].append(dependent_package)
 
 def find_tarfiles(path = "."):
-    return glob.glob(os.path.join(path, 
+    return glob.glob(os.path.join(path,
         "*.{}".format(EXTENSION)))
 
 def main(path = ".", database_file = 'data.json'):
@@ -63,12 +63,11 @@ def main(path = ".", database_file = 'data.json'):
 
     for package_path in package_paths:
         buildinfo = read_buildinfo(package_path)
-        thispackage = build_pkg_from_package_name(package_path)
+        thispackage = build_full_pkg_from_package_name(package_path)
 
         for package in decode_buildinfo_lines(buildinfo):
             add_package_to_dict(all_packages, package, thispackage)
 
-    
     with open('data.json', 'wt') as fp:
         json.dump(all_packages, fp)
 
