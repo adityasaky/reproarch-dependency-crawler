@@ -22,8 +22,8 @@ def read_buildinfo(path):
 
     return buildinfo.decode()
 
-def build_full_pkg_from_package_name(path):
-    return os.path.basename(path).rsplit(".", 3)[0].lstrip("./")
+def build_pkg_ver_from_package_name(path):
+    return os.path.basename(path).rsplit("-", 3)[0].lstrip("./")
 
 def decode_buildinfo_lines(buildinfo):
     result = []
@@ -33,7 +33,8 @@ def decode_buildinfo_lines(buildinfo):
         if line.startswith("installed"):
             pkg = line.split(" = ")[1]
             name, pkgver, pkgrel = pkg.rsplit("-", 2)
-            result.append("{}-{}-{}".format(name, pkgver, pkgrel))
+            #result.append("{}-{}-{}".format(name, pkgver, pkgrel))
+            result.append("{}".format(name.rsplit("-", 1)[0]))
 
     return result
 
@@ -63,7 +64,7 @@ def main(path = ".", database_file = 'data.json'):
 
     for package_path in package_paths:
         buildinfo = read_buildinfo(package_path)
-        thispackage = build_full_pkg_from_package_name(package_path)
+        thispackage = build_pkg_ver_from_package_name(package_path)
 
         for package in decode_buildinfo_lines(buildinfo):
             add_package_to_dict(all_packages, package, thispackage)
