@@ -78,15 +78,15 @@ def find_tarfiles(path="."):
     return all_files
 
 
-def main(path="."):
+def main(path=".", out="."):
     global package_paths
     now = datetime.datetime.now()
     today = "-".join([str(now.year), str(now.month), str(now.day)])
     database_file_name = "data_" + today
 
-    database_file_pkg = database_file_name + "_pkg.json"
-    database_file_pkg_ver = database_file_name + "_pkg-ver.json"
-    database_file_pkg_ver_pfm = database_file_name + "_pkg-ver-pfm.json"
+    database_file_pkg = os.path.join(out, database_file_name + "_pkg.json")
+    database_file_pkg_ver = os.path.join(out, database_file_name + "_pkg-ver.json")
+    database_file_pkg_ver_pfm = os.path.join(out, database_file_name + "_pkg-ver-pfm.json")
 
     try:
         with open(database_file_pkg) as fp:
@@ -147,7 +147,8 @@ def main(path="."):
 # and versions
 if __name__ == "__main__":
     path = "."
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         path = sys.argv[1]
-    
-    main(path)
+        out = sys.argv[2]
+
+    main(path, out)
