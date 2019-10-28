@@ -1,0 +1,16 @@
+[Unit]
+Description=Capture a duplicity backup of the Arch repositories
+After=duplicity-repository-backup.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/usr/bin/docker run \
+-m 8g \
+-v /srv/arch-mirror:/repo \
+-v /home/aditya:/aditya-home \
+--rm \
+arch-repo-archive
+
+[Install]
+WantedBy=multi-user.target
