@@ -9,4 +9,4 @@ COPY dependency-report.py /
 
 COPY entrypoint.sh /
 
-ENTRYPOINT entrypoint.sh
+ENTRYPOINT /entrypoint.sh
