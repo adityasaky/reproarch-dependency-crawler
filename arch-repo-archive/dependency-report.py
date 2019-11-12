@@ -145,8 +145,11 @@ def main(path=".", out="."):
 
 # FIXME: should populate a dictionary for fast lookup of all the package names,
 # and versions
+
+# FIXME: do better argument parsing
 if __name__ == "__main__":
     path = "."
+    out = "."
     if len(sys.argv) > 2:
         path = sys.argv[1]
         out = sys.argv[2]
