@@ -47,10 +47,13 @@ def decode_buildinfo_lines(buildinfo):
         if line.startswith("installed"):
             pkg = line.split(" = ")[1]
             pkg_split = pkg.rsplit("-", 3)
-            if len(pkg_split) < 4 or pkg_split[3] not in PLATFORMS:
-                pkg_split = find_platform(pkg)
-                if pkg_split is None:
-                    continue
+            if len(pkg_split) < 4:
+                pkg_split.append("x86_64")
+            elif pkg_split[3] not in PLATFORMS:
+                pkg_split[3] = "x84_64"
+                # pkg_split = find_platform(pkg)
+                # if pkg_split is None:
+                #     continue
             name, pkgver, build, pfm = pkg_split
             result_pkg.append("{}".format(name))
             result_pkg_ver.append("{}-{}-{}".format(name, pkgver, build))
