@@ -97,20 +97,20 @@ def main(path=".", out="."):
 
         packages_to_makedepends[pkgname] = makedepends
 
-        for makedepend in makedepends:
-            add_package_to_dict(makedepends_to_packages, makedepend, pkgname)
+        # for makedepend in makedepends:
+        #     add_package_to_dict(makedepends_to_packages, makedepend, pkgname)
         
-    for makedepend in makedepends_to_packages:
-        for consumer in makedepends_to_packages[makedepend]:
-            if consumer in makedepends_to_packages:
-                makedepends_to_packages[makedepend].extend(makedepends_to_packages[consumer])
-                makedepends_to_packages[makedepend] = list(set(makedepends_to_packages[makedepend]))
+    # for makedepend in makedepends_to_packages:
+    #     for consumer in makedepends_to_packages[makedepend]:
+    #         if consumer in makedepends_to_packages:
+    #             makedepends_to_packages[makedepend].extend(makedepends_to_packages[consumer])
+    #             makedepends_to_packages[makedepend] = list(set(makedepends_to_packages[makedepend]))
     
     with open(packages_to_makedepends_file_path, "wt") as fp:
         json.dump(packages_to_makedepends, fp)
 
-    with open(makedepends_to_packages_file_path, "wt") as fp:
-        json.dump(makedepends_to_packages, fp)
+    # with open(makedepends_to_packages_file_path, "wt") as fp:
+    #     json.dump(makedepends_to_packages, fp)
     
 
 if __name__ == "__main__":
