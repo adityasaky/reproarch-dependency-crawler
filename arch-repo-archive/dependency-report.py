@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import tarfile
+import xtarfile
 import os
 import glob
 import json
@@ -17,7 +17,7 @@ def read_buildinfo(path):
         # XXX
         raise Exception("This is not a valid path!")
 
-    with tarfile.open(path, "r:*") as fp:
+    with xtarfile.open(path, "r") as fp:
         try:
             buildinfo = fp.extractfile(".BUILDINFO").read()
         except:
