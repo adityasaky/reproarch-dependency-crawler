@@ -73,12 +73,12 @@ def decode_buildinfo(buildinfo):
     for line in buildinfo.splitlines():
         if line.startswith("installed"):
             pkg = line.split(" = ")[1]
-            rex = re.compile('^[a-z0-9\-_\+\.]+-[0-9a-zA-Z\.\+:_]+-[0-9]+-(any|x86_64)')
+            rex = re.compile('^[a-z0-9\-_\+\.]+-[0-9a-zA-Z\.\+:_]+-[0-9\.]+-(any|x86_64)')
             pkg_check = rex.match(pkg)
             if pkg_check is not None and pkg_check[0] == pkg:
                 pkg_split = pkg.rsplit("-", 3)
             else:
-                rex = re.compile('^[a-z0-9\-_\+\.]+-[0-9a-zA-Z\.\+:_]+-[0-9]+')
+                rex = re.compile('^[a-z0-9\-_\+\.]+-[0-9a-zA-Z\.\+:_]+-[0-9\.]+')
                 pkg_check = rex.match(pkg)
                 if pkg_check is not None and pkg_check[0] == pkg:
                     pkg_split = pkg.rsplit("-", 2)
