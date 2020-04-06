@@ -37,7 +37,7 @@ source_url='rsync://mirror.es.its.nyu.edu/archlinux/'
 # An HTTP(S) URL pointing to the 'lastupdate' file on your chosen mirror.
 # If you are a tier 1 mirror use: http://rsync.archlinux.org/lastupdate
 # Otherwise use the HTTP(S) URL from your chosen mirror.
-lastupdate_url=''
+lastupdate_url='http://mirror.es.its.nyu.edu/archlinux/lastupdate'
 
 #### END CONFIG
 
@@ -78,6 +78,7 @@ rsync_cmd \
 	--exclude='/sources' \
 	--exclude='/iso' \
 	--exclude='/archive' \
+	--exclude='/securesystemslab' \
 	"${source_url}" \
 	"${target}"
 
