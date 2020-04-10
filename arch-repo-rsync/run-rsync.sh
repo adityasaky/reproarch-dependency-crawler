@@ -78,7 +78,7 @@ rsync_cmd \
 	--exclude='/sources' \
 	--exclude='/iso' \
 	--exclude='/archive' \
-	--exclude='/securesystemslab' \
+	--exclude='securesystemslab' \
 	"${source_url}" \
 	"${target}"
 
